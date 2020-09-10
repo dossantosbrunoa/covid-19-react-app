@@ -38,7 +38,13 @@ export default class CovidService {
     async getHistoryByCountry(country) {
         try {
             const { data } = await this.covidRepository.getHistoryByCountry('brazil');
-            return Promise.resolve(data);
+            const countryResult = data.map(country => {
+                return {
+                    ...country,
+                    Date: country.Date
+                }
+            });
+            return Promise.resolve(countryResult);
         } catch {
             return Promise.reject('Erro ao obter dados, tente novamente mais tarde');
         }
