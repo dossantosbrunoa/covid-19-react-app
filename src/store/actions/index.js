@@ -1,10 +1,8 @@
 export {
-    getSummary,
-    updateSummaryList,
-    getHistoryByCountry,
-    getCountryOptions,
-} from './covid';
+  getSummary,
+  updateSummaryList,
+  getHistoryByCountry,
+  getCountryOptions,
+} from "./covid";
 
-export {
-    getCountries,
-} from './countries';
+export { getCountries } from "./countries";

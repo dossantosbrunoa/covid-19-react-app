@@ -1,10 +1,10 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.div`
-    display: flex;
+  display: flex;
 `;
 
 export const Image = styled.img`
-    width: 20px;
-    margin-right: 4px;
+  width: 20px;
+  margin-right: 4px;
 `;

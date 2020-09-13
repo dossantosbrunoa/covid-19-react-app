@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useSelector } from 'react-redux';
-import { useMedia } from 'react-media';
+import { useSelector } from "react-redux";
+import { useMedia } from "react-media";
 
 import {
   ComposableMap,
@@ -9,13 +9,19 @@ import {
   ZoomableGroup,
 } from "react-simple-maps";
 
-import Navigator from '../Navigator';
-import ZoomIcon from '../Atoms/ZoomIcon';
+import Navigator from "../Navigator";
+import ZoomIcon from "../Atoms/ZoomIcon";
 
-import { Container, SliderContainer, Description, LoadingContainer, ComposableMapContainer } from './styles';
-import Slider from '@material-ui/core/Slider';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Globe from './Globe';
+import {
+  Container,
+  SliderContainer,
+  Description,
+  LoadingContainer,
+  ComposableMapContainer,
+} from "./styles";
+import Slider from "@material-ui/core/Slider";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Globe from "./Globe";
 import ReactTooltip from "react-tooltip";
 
 const mapObject = {
@@ -26,8 +32,8 @@ const mapObject = {
     minValuePerHabitant: 3000,
     maxValuePerHabitant: 7000,
     backgroundButtonColor: "#6a006a",
-    linePosition: 'start',
-    label: 'Total de Casos',
+    linePosition: "start",
+    label: "Total de Casos",
   },
   totalDeaths: {
     lowerLimit: "#ffe5e5",
@@ -36,8 +42,8 @@ const mapObject = {
     minValuePerHabitant: 100000,
     maxValuePerHabitant: 300000,
     backgroundButtonColor: "#ff0000",
-    linePosition: 'center',
-    label: 'Total de Mortes',
+    linePosition: "center",
+    label: "Total de Mortes",
   },
   totalRecovered: {
     lowerLimit: "#e5f2e5",
@@ -46,17 +52,19 @@ const mapObject = {
     minValuePerHabitant: 4000,
     maxValuePerHabitant: 12000,
     backgroundButtonColor: "#008000",
-    linePosition: 'flex-end',
-    label: 'Total de Recuperados',
-  }
-}
+    linePosition: "flex-end",
+    label: "Total de Recuperados",
+  },
+};
 
 const zoomStep = 0.2;
 
 const WorldMap = ({ defaultDataType }) => {
   const [tooltipContent, setTooltipContent] = useState(null);
   const [dataType, setDataTypeState] = useState(defaultDataType);
-  const [numberPerHabitants, setNumberPerHabitants] = useState(mapObject[defaultDataType].defaultPerHabitantValue);
+  const [numberPerHabitants, setNumberPerHabitants] = useState(
+    mapObject[defaultDataType].defaultPerHabitantValue
+  );
   const [position, setPosition] = useState({ coordinates: [0, 0], zoom: 1 });
 
   const isBigScreen = useMedia({ query: "(min-width: 768px)" });
@@ -65,23 +73,29 @@ const WorldMap = ({ defaultDataType }) => {
   const onDataTypeChange = (dataType) => {
     setDataTypeState(dataType);
     setNumberPerHabitants(mapObject[dataType].defaultPerHabitantValue);
-  }
+  };
 
   const onSliderChange = (event, newValue) => {
     setNumberPerHabitants(newValue);
   };
 
   const onZoomInHandler = () => {
-    if(position.zoom <= 2) {
-      setPosition((prevPosition) => ({ ...prevPosition, zoom: prevPosition.zoom + zoomStep}));
+    if (position.zoom <= 2) {
+      setPosition((prevPosition) => ({
+        ...prevPosition,
+        zoom: prevPosition.zoom + zoomStep,
+      }));
     }
-  }
+  };
 
   const onZoomOutHandler = () => {
-    if(position.zoom >= 1) {
-      setPosition((prevPosition) => ({ ...prevPosition, zoom: prevPosition.zoom - zoomStep}));
+    if (position.zoom >= 1) {
+      setPosition((prevPosition) => ({
+        ...prevPosition,
+        zoom: prevPosition.zoom - zoomStep,
+      }));
     }
-  }
+  };
 
   function onMoveEndHandler(position) {
     setPosition(position);
@@ -89,62 +103,71 @@ const WorldMap = ({ defaultDataType }) => {
 
   return (
     <Container>
-      <Navigator 
+      <Navigator
         dataType={dataType}
         onButtonClicked={(dataType) => onDataTypeChange(dataType)}
         navigatorObject={mapObject}
-        />
-        {loading ? 
+      />
+      {loading ? (
         <LoadingContainer>
-          <CircularProgress /> 
-        </LoadingContainer> : 
-          <>
-            <Description>Dados para cada {numberPerHabitants.toLocaleString('pt-Br')} Habitantes</Description>
-            <SliderContainer>
-              <Slider 
-                style={{color: mapObject[dataType].backgroundButtonColor}}
-                min={mapObject[dataType].minValuePerHabitant}
-                max={mapObject[dataType].maxValuePerHabitant}
-                value={numberPerHabitants} 
-                onChange={onSliderChange} 
-                aria-labelledby="continuous-slider" />
-            </SliderContainer>
-            <ComposableMapContainer>
+          <CircularProgress />
+        </LoadingContainer>
+      ) : (
+        <>
+          <Description>
+            Dados para cada {numberPerHabitants.toLocaleString("pt-Br")}{" "}
+            Habitantes
+          </Description>
+          <SliderContainer>
+            <Slider
+              style={{ color: mapObject[dataType].backgroundButtonColor }}
+              min={mapObject[dataType].minValuePerHabitant}
+              max={mapObject[dataType].maxValuePerHabitant}
+              value={numberPerHabitants}
+              onChange={onSliderChange}
+              aria-labelledby="continuous-slider"
+            />
+          </SliderContainer>
+          <ComposableMapContainer>
             <ComposableMap
-                data-tip=""
-                height={200}
-                width={isBigScreen ? 500 : 400}
-                projectionConfig={{
-                  scale: 80
-                }}
+              data-tip=""
+              height={200}
+              width={isBigScreen ? 500 : 400}
+              projectionConfig={{
+                scale: 80,
+              }}
+            >
+              <ZoomableGroup
+                zoom={position.zoom}
+                center={position.coordinates}
+                onMoveEnd={onMoveEndHandler}
               >
-                <ZoomableGroup 
-                  zoom={position.zoom}
-                  center={position.coordinates}
-                  onMoveEnd={onMoveEndHandler}>
                 <Sphere stroke="#C1C5C8" strokeWidth={0.5} />
                 <Graticule stroke="#C1C5C8" strokeWidth={0.5} />
-                <Globe 
+                <Globe
                   colorScaleLowerLimit={mapObject[dataType].lowerLimit}
                   colorScaleUpperLimit={mapObject[dataType].upperLimit}
-                  summaryList={summaryList} 
+                  summaryList={summaryList}
                   numberPerHabitants={numberPerHabitants}
-                  dataType={dataType} 
+                  dataType={dataType}
                   countryHoverColor={mapObject[dataType].backgroundButtonColor}
                   onMouseEnter={(tooltipContent) => {
                     setTooltipContent(tooltipContent);
                   }}
                   onMouseLeave={(tooltipContent) => {
                     setTooltipContent(tooltipContent);
-                  }} />
-                </ZoomableGroup>
+                  }}
+                />
+              </ZoomableGroup>
             </ComposableMap>
-            </ComposableMapContainer>
-            <ReactTooltip>{tooltipContent}</ReactTooltip> 
-            <ZoomIcon 
-             onZoomIn={() =>  onZoomInHandler()}
-             onZoomOut={() => onZoomOutHandler()} />
-          </>}
+          </ComposableMapContainer>
+          <ReactTooltip>{tooltipContent}</ReactTooltip>
+          <ZoomIcon
+            onZoomIn={() => onZoomInHandler()}
+            onZoomOut={() => onZoomOutHandler()}
+          />
+        </>
+      )}
     </Container>
   );
 };

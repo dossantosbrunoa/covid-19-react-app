@@ -1,5 +1,5 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const SkeletonContainer = styled.div`
-    height: 56px;
+  height: 56px;
 `;
