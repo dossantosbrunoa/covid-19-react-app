@@ -33,8 +33,9 @@ const CountriesList = () => {
   if (loading) {
     elements = <SkeletonList />;
   } else if (!!summaryList && summaryList.length > 0) {
-    elements = summaryList.map((summary) => (
+    elements = summaryList.map((summary, index) => (
       <CountriesListElement
+        key={index}
         name={summary.name}
         totalCases={summary.totalCases}
         totalDeaths={summary.totalDeaths}

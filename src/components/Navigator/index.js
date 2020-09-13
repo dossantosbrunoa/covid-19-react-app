@@ -25,6 +25,7 @@ const Navigator = ({ onButtonClicked, dataType, navigatorObject }) => {
 
   const buttons = Object.keys(navigatorObject).map((key) => (
     <Button
+      key={key}
       selected={() => isSelected(key)}
       onClick={() => onClickedHandler(key)}
     >
@@ -46,9 +47,9 @@ Navigator.propTypes = {
   onButtonClicked: PropTypes.func.isRequired,
   dataType: PropTypes.string.isRequired,
   navigatorObject: PropTypes.shape({
-    linePosition: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
-    backgroundButtonColor: PropTypes.string.isRequired,
+    linePosition: PropTypes.string,
+    label: PropTypes.string,
+    backgroundButtonColor: PropTypes.string,
   })
 }
 
