@@ -9,7 +9,7 @@ import {
   ZoomableGroup,
 } from "react-simple-maps";
 
-import MapNavigator from './MapNavigator';
+import Navigator from '../Navigator';
 import ZoomIcon from '../Atoms/ZoomIcon';
 
 import { Container, SliderContainer, Description, LoadingContainer, ComposableMapContainer } from './styles';
@@ -19,14 +19,6 @@ import Globe from './Globe';
 import ReactTooltip from "react-tooltip";
 
 const mapObject = {
-  totalDeaths: {
-    lowerLimit: "#ffe5e5",
-    upperLimit: "#ff0000",
-    defaultPerHabitantValue: 200000,
-    minValuePerHabitant: 100000,
-    maxValuePerHabitant: 300000,
-    backgroundButtonColor: "#ff0000",
-  },
   totalCases: {
     lowerLimit: "#f0e5f0",
     upperLimit: "#6a006a",
@@ -34,6 +26,18 @@ const mapObject = {
     minValuePerHabitant: 3000,
     maxValuePerHabitant: 7000,
     backgroundButtonColor: "#6a006a",
+    linePosition: 'start',
+    label: 'Total de Casos',
+  },
+  totalDeaths: {
+    lowerLimit: "#ffe5e5",
+    upperLimit: "#ff0000",
+    defaultPerHabitantValue: 200000,
+    minValuePerHabitant: 100000,
+    maxValuePerHabitant: 300000,
+    backgroundButtonColor: "#ff0000",
+    linePosition: 'center',
+    label: 'Total de Mortes',
   },
   totalRecovered: {
     lowerLimit: "#e5f2e5",
@@ -42,6 +46,8 @@ const mapObject = {
     minValuePerHabitant: 4000,
     maxValuePerHabitant: 12000,
     backgroundButtonColor: "#008000",
+    linePosition: 'flex-end',
+    label: 'Total de Recuperados',
   }
 }
 
@@ -83,10 +89,10 @@ const WorldMap = ({ defaultDataType }) => {
 
   return (
     <Container>
-      <MapNavigator 
-        color={mapObject[dataType].backgroundButtonColor}
+      <Navigator 
+        dataType={dataType}
         onButtonClicked={(dataType) => onDataTypeChange(dataType)}
-        defaultDataType={defaultDataType}
+        navigatorObject={mapObject}
         />
         {loading ? 
         <LoadingContainer>

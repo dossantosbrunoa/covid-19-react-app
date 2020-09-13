@@ -8,4 +8,8 @@ export default class CovidRepository {
     async getHistoryByCountry(country) {
         return axios.get(`https://api.covid19api.com/dayone/country/${country}`);
     }
+
+    async getCountryOptions() {
+        return axios.get('https://api.covid19api.com/countries');
+    }
 }

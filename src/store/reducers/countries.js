@@ -3,7 +3,7 @@ import * as actionsTypes from '../actions/actionTypes';
 const initialState = {
     countriesList: [],
     loading: false,
-    errorMessage: '' 
+    countriesErrorMessage: null
 }
 
 const countriesReducer = (state = initialState, action) => {
@@ -12,7 +12,7 @@ const countriesReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: true,
-                errorMessage: ''
+                countriesErrorMessage: null
             }
         case actionsTypes.GET_COUNTRIES_SUCCESS:
             return {
@@ -24,7 +24,7 @@ const countriesReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                errorMessage: action.errorMessage
+                countriesErrorMessage: action.errorMessage
             }
         default:
             return state
