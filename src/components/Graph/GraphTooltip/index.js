@@ -1,6 +1,8 @@
 import React from "react";
 import { Container, TextContainer, Strong } from "./styles";
 
+import PropTypes from "prop-types";
+
 const GraphTooltip = ({ active, payload, label }) => {
   const getTitle = (dataKey) => {
     switch (dataKey) {
@@ -32,5 +34,11 @@ const GraphTooltip = ({ active, payload, label }) => {
 
   return null;
 };
+
+GraphTooltip.propTypes = {
+  active: PropTypes.bool.isRequired,
+  payload: PropTypes.array.isRequired,
+  label: PropTypes.string.isRequired,
+}
 
 export default GraphTooltip;

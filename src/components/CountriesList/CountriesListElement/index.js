@@ -7,6 +7,8 @@ import {
   Image,
 } from "./styles";
 
+import PropTypes from "prop-types";
+
 const CountriesListElement = ({
   name,
   totalCases,
@@ -34,5 +36,13 @@ const CountriesListElement = ({
     </ElementContainer>
   );
 };
+
+CountriesListElement.propTypes = {
+  name: PropTypes.string.isRequired,
+  totalCases: PropTypes.number.isRequired,
+  totalDeaths: PropTypes.number.isRequired,
+  totalRecovered: PropTypes.number.isRequired,
+  flag: PropTypes.string.isRequired,
+}
 
 export default CountriesListElement;

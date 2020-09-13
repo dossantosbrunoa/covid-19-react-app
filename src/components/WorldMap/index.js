@@ -24,6 +24,8 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Globe from "./Globe";
 import ReactTooltip from "react-tooltip";
 
+import PropTypes from "prop-types";
+
 const mapObject = {
   totalCases: {
     lowerLimit: "#f0e5f0",
@@ -171,5 +173,9 @@ const WorldMap = ({ defaultDataType }) => {
     </Container>
   );
 };
+
+WorldMap.propTypes = {
+  defaultDataType: PropTypes.string.isRequired
+}
 
 export default WorldMap;

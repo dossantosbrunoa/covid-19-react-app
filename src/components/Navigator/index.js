@@ -7,6 +7,8 @@ import {
   Line,
 } from "./styles";
 
+import PropTypes from "prop-types";
+
 const Navigator = ({ onButtonClicked, dataType, navigatorObject }) => {
   const [linePosition, setLinePosition] = useState(
     navigatorObject[dataType].linePosition
@@ -39,5 +41,15 @@ const Navigator = ({ onButtonClicked, dataType, navigatorObject }) => {
     </Container>
   );
 };
+
+Navigator.propTypes = {
+  onButtonClicked: PropTypes.func.isRequired,
+  dataType: PropTypes.string.isRequired,
+  navigatorObject: PropTypes.shape({
+    linePosition: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    backgroundButtonColor: PropTypes.string.isRequired,
+  })
+}
 
 export default Navigator;

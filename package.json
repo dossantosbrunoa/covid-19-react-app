@@ -12,7 +12,6 @@
     "axios": "^0.20.0",
     "country-list-js": "^3.1.7",
     "d3-scale": "^3.2.1",
-    "eslint": "^7.9.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.6",

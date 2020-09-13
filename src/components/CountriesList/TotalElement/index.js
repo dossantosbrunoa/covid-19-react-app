@@ -2,6 +2,8 @@ import React from "react";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { Container } from "./styles";
 
+import PropTypes from "prop-types";
+
 const TotalElement = ({ loading, totalCases, totalDeaths, totalRecovered }) => {
   let totalElement = null;
 
@@ -34,5 +36,12 @@ const TotalElement = ({ loading, totalCases, totalDeaths, totalRecovered }) => {
 
   return <Container>{totalElement}</Container>;
 };
+
+TotalElement.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  totalCases: PropTypes.number.isRequired,
+  totalDeaths: PropTypes.number.isRequired,
+  totalRecovered: PropTypes.number.isRequired,
+}
 
 export default TotalElement;

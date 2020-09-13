@@ -8,6 +8,8 @@ import Skeleton from "@material-ui/lab/Skeleton";
 
 import { SkeletonContainer } from "./styles";
 
+import PropTypes from "prop-types";
+
 const CountryAutocomplete = ({ defaultSlug }) => {
   const { countryOptionsList, countryLoading } = useSelector(
     (state) => state.covid
@@ -54,5 +56,9 @@ const CountryAutocomplete = ({ defaultSlug }) => {
     />
   );
 };
+
+CountryAutocomplete.propTypes = {
+  defaultSlug: PropTypes.string.isRequired,
+}
 
 export default CountryAutocomplete;

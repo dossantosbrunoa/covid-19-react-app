@@ -1,6 +1,8 @@
 import React from "react";
 import { Container, PageTitle } from "./styles";
 
+import PropTypes from "prop-types";
+
 const PageWrapper = ({ pageTitle, children }) => {
   return (
     <Container>
@@ -9,5 +11,10 @@ const PageWrapper = ({ pageTitle, children }) => {
     </Container>
   );
 };
+
+PageWrapper.propTypes = {
+  pageTitle: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+}
 
 export default PageWrapper;
