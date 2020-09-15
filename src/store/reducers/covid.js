@@ -46,6 +46,7 @@ const summaryReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         covidErrorMessage: action.errorMessage,
+        countryHistoryObject: null,
       };
     case actionsTypes.UPDATE_SUMMARY_LIST:
       return {

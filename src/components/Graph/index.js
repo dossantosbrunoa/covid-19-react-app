@@ -42,8 +42,6 @@ const Graph = () => {
 
   let graphArray = null;
 
-  console.log(countryHistoryObject)
-
   if(!!countryHistoryObject && !!countryHistoryObject[dataType]) {
     graphArray = Object.keys(countryHistoryObject[dataType]).map(key => ({
       x: moment(key, "M/D/YYYY").format("DD/MM/YYYY"),
