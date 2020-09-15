@@ -41,9 +41,9 @@ const getHistoryByCountryStarted = () => ({
   type: actionTypes.GET_HISTORY_BY_COUNTRY_STARTED,
 });
 
-const getHistoryByCountrySuccess = (countryHistoryList) => ({
+const getHistoryByCountrySuccess = (countryHistoryObject) => ({
   type: actionTypes.GET_HISTORY_BY_COUNTRY_SUCCESS,
-  countryHistoryList,
+  countryHistoryObject,
 });
 
 const getHistoryByCountryFailed = (errorMessage) => ({
@@ -51,44 +51,16 @@ const getHistoryByCountryFailed = (errorMessage) => ({
   errorMessage,
 });
 
-export const getHistoryByCountry = (country) => {
+export const getHistoryByCountry = (iso2Code) => {
   return (dispatch) => {
     dispatch(getHistoryByCountryStarted());
     covidService
-      .getHistoryByCountry(country)
+      .getHistoryByCountry(iso2Code)
       .then((data) => {
         dispatch(getHistoryByCountrySuccess(data));
       })
       .catch((errorMessage) => {
         dispatch(getHistoryByCountryFailed(errorMessage));
-      });
-  };
-};
-
-const getCountryOptionsStarted = () => ({
-  type: actionTypes.GET_COUNTRY_OPTIONS_STARTED,
-});
-
-const getCountryOptionsSuccess = (countryOptionsList) => ({
-  type: actionTypes.GET_COUNTRY_OPTIONS_SUCCESS,
-  countryOptionsList,
-});
-
-const getCountryOptionsFailed = (errorMessage) => ({
-  type: actionTypes.GET_COUNTRY_OPTIONS_FAILED,
-  errorMessage,
-});
-
-export const getCountryOptions = () => {
-  return (dispatch) => {
-    dispatch(getCountryOptionsStarted());
-    covidService
-      .getCountryOptions()
-      .then((data) => {
-        dispatch(getCountryOptionsSuccess(data));
-      })
-      .catch((errorMessage) => {
-        dispatch(getCountryOptionsFailed(errorMessage));
       });
   };
 };

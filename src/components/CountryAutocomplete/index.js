@@ -10,41 +10,41 @@ import { SkeletonContainer } from "./styles";
 
 import PropTypes from "prop-types";
 
-const CountryAutocomplete = ({ defaultSlug }) => {
-  const { countryOptionsList, countryLoading } = useSelector(
-    (state) => state.covid
+const CountryAutocomplete = ({ defaultIso2Code }) => {
+  const { countriesList, loading } = useSelector(
+    (state) => state.countries
   );
   const [selectedCountry, setSelectedCountry] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!!countryOptionsList && countryOptionsList.length > 0) {
-      const defaultValue = countryOptionsList.find(
-        (c) => c.slug === defaultSlug
+    if (!!countriesList && countriesList.length > 0) {
+      const defaultValue = countriesList.find(
+        (c) => c.alpha2Code === defaultIso2Code
       );
       setSelectedCountry(defaultValue);
     }
-  }, [countryOptionsList, defaultSlug]);
+  }, [countriesList, defaultIso2Code]);
 
   const onCountryChangedHandler = (newCountry) => {
     if (newCountry) {
       setSelectedCountry(newCountry);
-      dispatch(actions.getHistoryByCountry(newCountry.slug));
+      dispatch(actions.getHistoryByCountry(newCountry.alpha2Code));
     }
   };
 
-  return countryLoading ? (
+  return loading ? (
     <SkeletonContainer>
       <Skeleton />
     </SkeletonContainer>
   ) : (
     <Autocomplete
-      options={countryOptionsList}
+      options={countriesList}
       value={selectedCountry}
       onChange={(event, newValue) => {
         onCountryChangedHandler(newValue);
       }}
-      getOptionLabel={(option) => option.name}
+      getOptionLabel={(option) => option.translations.br}
       style={{ width: "100%", marginBottom: "12px" }}
       renderInput={(params) => (
         <TextField
@@ -58,7 +58,7 @@ const CountryAutocomplete = ({ defaultSlug }) => {
 };
 
 CountryAutocomplete.propTypes = {
-  defaultSlug: PropTypes.string.isRequired,
+  defaultIso2Code: PropTypes.string.isRequired,
 }
 
 export default CountryAutocomplete;

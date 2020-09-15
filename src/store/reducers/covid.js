@@ -2,11 +2,9 @@ import * as actionsTypes from "../actions/actionTypes";
 
 const initialState = {
   summaryList: [],
-  countryHistoryList: [],
-  countryOptionsList: [],
+  countryHistoryObject: null,
   global: null,
   loading: false,
-  countryLoading: false,
   covidErrorMessage: null,
 };
 
@@ -41,7 +39,7 @@ const summaryReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        countryHistoryList: action.countryHistoryList,
+        countryHistoryObject: action.countryHistoryObject,
       };
     case actionsTypes.GET_HISTORY_BY_COUNTRY_FAILED:
       return {
@@ -53,24 +51,6 @@ const summaryReducer = (state = initialState, action) => {
       return {
         ...state,
         summaryList: action.summaryList,
-      };
-    case actionsTypes.GET_COUNTRY_OPTIONS_STARTED:
-      return {
-        ...state,
-        countryLoading: true,
-        covidErrorMessage: null,
-      };
-    case actionsTypes.GET_COUNTRY_OPTIONS_SUCCESS:
-      return {
-        ...state,
-        countryLoading: false,
-        countryOptionsList: action.countryOptionsList,
-      };
-    case actionsTypes.GET_COUNTRY_OPTIONS_FAILED:
-      return {
-        ...state,
-        countryLoading: false,
-        covidErrorMessage: action.errorMessage,
       };
     default:
       return state;

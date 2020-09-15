@@ -16,6 +16,8 @@ import GraphTooltip from "./GraphTooltip";
 
 import { GraphAreaContainer } from "./styles";
 
+import moment from 'moment';
+
 const graphObject = {
   cases: {
     backgroundButtonColor: "#6a006a",
@@ -36,7 +38,18 @@ const graphObject = {
 
 const Graph = () => {
   const [dataType, setDataType] = useState("cases");
-  const { countryHistoryList, loading } = useSelector((state) => state.covid);
+  const { countryHistoryObject, loading } = useSelector((state) => state.covid);
+
+  let graphArray = null;
+
+  console.log(countryHistoryObject)
+
+  if(!!countryHistoryObject && !!countryHistoryObject[dataType]) {
+    graphArray = Object.keys(countryHistoryObject[dataType]).map(key => ({
+      x: moment(key, "M/D/YYYY").format("DD/MM/YYYY"),
+      y: countryHistoryObject[dataType][key]
+    }));
+  };
 
   return (
     <>
@@ -49,10 +62,10 @@ const Graph = () => {
         <GraphAreaContainer>
           <CircularProgress />
         </GraphAreaContainer>
-      ) : countryHistoryList.length > 0 ? (
+      ) : graphArray?.length > 0 ? (
         <ResponsiveContainer width="100%" height={380}>
           <AreaChart
-            data={countryHistoryList}
+            data={graphArray}
             margin={{
               top: 20,
               right: 30,
@@ -61,15 +74,13 @@ const Graph = () => {
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="Date" interval={"preserveStartEnd"} tickCount={2} />
+            <XAxis dataKey="x" interval={"preserveStartEnd"} tickCount={2} />
             <YAxis />
-            <Tooltip content={<GraphTooltip />} />
+            <Tooltip content={<GraphTooltip dataType={dataType}/>} />
             <ReferenceLine y={0} stroke="#000" />
             <Area
               isAnimationActive={false}
-              onAnimationStart={() => console.log("onAnimationStart")}
-              onAnimationEnd={() => console.log("onAnimationEnd")}
-              dataKey={dataType}
+              dataKey="y"
               type="monotone"
               stroke={graphObject[dataType].backgroundButtonColor}
               fill={graphObject[dataType].backgroundButtonColor}

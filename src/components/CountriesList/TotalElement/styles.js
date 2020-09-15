@@ -12,3 +12,18 @@ export const Container = styled.div`
     padding: 8px 26px 8px 20px;
   }
 `;
+
+export const LabelContainer = styled.div`
+  width: 30%;
+`;
+
+export const FieldsContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 70%;
+`;
+
+export const FieldContainer = styled.div`
+  width: ${props => props.width}; 
+  text-align: right;
+`;

@@ -1,6 +1,6 @@
 import React from "react";
 import Skeleton from "@material-ui/lab/Skeleton";
-import { Container } from "./styles";
+import { Container, LabelContainer, FieldsContainer, FieldContainer } from "./styles";
 
 import PropTypes from "prop-types";
 
@@ -12,24 +12,18 @@ const TotalElement = ({ loading, totalCases, totalDeaths, totalRecovered }) => {
   } else {
     totalElement = (
       <>
-        <div style={{ width: "30%" }}>TOTAL</div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            width: "70%",
-          }}
-        >
-          <div style={{ width: "20%", textAlign: "right" }}>
+        <LabelContainer>TOTAL</LabelContainer>
+        <FieldsContainer>
+          <FieldContainer width={"20%"}>
             {totalCases.toLocaleString("pt-Br")}
-          </div>
-          <div style={{ width: "20%", textAlign: "right" }}>
+          </FieldContainer>
+          <FieldContainer width={"20%"}>
             {totalDeaths.toLocaleString("pt-Br")}
-          </div>
-          <div style={{ width: "30%", textAlign: "right" }}>
+          </FieldContainer>
+          <FieldContainer width={"30%"}>
             {totalRecovered.toLocaleString("pt-Br")}
-          </div>
-        </div>
+          </FieldContainer>
+        </FieldsContainer>
       </>
     );
   }

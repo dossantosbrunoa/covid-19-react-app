@@ -8,16 +8,16 @@ import CountryAutocomplete from "../../components/CountryAutocomplete";
 
 const PerCountry = () => {
   const dispatch = useDispatch();
-  const defaultSlug = "brazil";
+  const defaultIso2Code= "BR";
 
   useEffect(() => {
-    dispatch(actions.getHistoryByCountry(defaultSlug));
-    dispatch(actions.getCountryOptions());
+    dispatch(actions.getHistoryByCountry(defaultIso2Code));
+    dispatch(actions.getCountries());
   }, [dispatch]);
 
   return (
     <PageWrapper pageTitle={"Por País"}>
-      <CountryAutocomplete defaultSlug={defaultSlug} />
+      <CountryAutocomplete defaultIso2Code={defaultIso2Code} />
       <Graph />
     </PageWrapper>
   );

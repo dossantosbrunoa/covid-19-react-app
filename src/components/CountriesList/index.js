@@ -98,9 +98,9 @@ const CountriesList = () => {
       <ElementsContainer>{elements}</ElementsContainer>
       <TotalElement
         loading={loading}
-        totalCases={global ? global.TotalConfirmed : 0}
-        totalDeaths={global ? global.TotalDeaths : 0}
-        totalRecovered={global ? global.TotalRecovered : 0}
+        totalCases={global ? global.totalCases : 0}
+        totalDeaths={global ? global.totalDeaths : 0}
+        totalRecovered={global ? global.totalRecovered : 0}
       />
     </Container>
   );

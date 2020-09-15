@@ -2,7 +2,6 @@ import CovidRepository from '../../repositories/CovidRepository';
 import CountryService from '../CountriesService';
 
 import { sortByProperty } from '../../util/listUtil';
-import moment from 'moment';
 
 export default class CovidService {
     constructor() {
@@ -12,65 +11,45 @@ export default class CovidService {
 
     async getSummary() {
         try {
-            const { data } = await this.covidRepository.getSummary();
+            const { data } = await this.covidRepository.getCountries();
             const countries = await this.countryService.get();
-            const summaryList = data.Countries.map(cd => {
-                const country = countries.find(c => c.alpha2Code === cd.CountryCode);
+            const summaryList = data.map(cd => {
+                const country = countries.find(c => c.alpha2Code === cd.countryInfo.iso2);
                 if(country) {
                     return {
-                        alpha2Code: cd.CountryCode,
-                        totalDeaths: cd.TotalDeaths,
-                        totalCases: cd.TotalConfirmed,
-                        totalRecovered: cd.TotalRecovered,
+                        alpha2Code: cd.countryInfo.iso2,
+                        totalDeaths: cd.deaths,
+                        totalCases: cd.cases,
+                        totalRecovered: cd.recovered,
                         population: country.population,
                         name: country.translations.br,
                         flag: country.flag
                     }
                 }
             }).filter((e) => !!e);
-            const global = data.Global;
+            const { data: global } = await this.covidRepository.getGlobal();
             return Promise.resolve({
                 summaryList: sortByProperty(summaryList, 'totalCases', 'desc'),
-                global: global
+                global: {
+                    totalDeaths: global.deaths,
+                    totalCases: global.cases,
+                    totalRecovered: global.recovered,
+                }
             });
         } catch {
             return Promise.reject('Erro ao obter dados, tente novamente mais tarde');
         }
     }
 
-    async getHistoryByCountry(country) {
+    async getHistoryByCountry(iso2code) {
         try {
-            const { data } = await this.covidRepository.getHistoryByCountry(country);
-            const countryResult = data.map(country => {
-                return {
-                    ...country,
-                    Date: moment(country.Date).format('DD/MM/YYYY'),
-                    cases: country.Confirmed,
-                    deaths: country.Deaths,
-                    recovered: country.Recovered,
-                }
+            const { data } = await this.covidRepository.getHistoryByCountry(iso2code);
+            return Promise.resolve({
+                cases: data.timeline.cases,
+                deaths: data.timeline.deaths,
+                recovered: data.timeline.recovered,
             });
-            return Promise.resolve(countryResult);
         } catch {
-            return Promise.reject('Erro ao obter dados, tente novamente mais tarde');
-        }
-    }
-
-    async getCountryOptions() {
-        try {
-            const { data } = await this.covidRepository.getCountryOptions();
-            const countries = await this.countryService.get();
-            const countryOptionsList = data.map(cd => {
-                const country = countries.find(c => c.alpha2Code === cd.ISO2);
-                if(country) {
-                    return  {
-                        slug: cd.Slug,
-                        name: country.translations.br,
-                    };
-                }
-            }).filter((e) => !!e);
-            return Promise.resolve(sortByProperty(countryOptionsList, 'name', 'asc'));
-        } catch (error) {
             return Promise.reject('Erro ao obter dados, tente novamente mais tarde');
         }
     }
