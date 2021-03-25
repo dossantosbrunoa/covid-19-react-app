@@ -4,4 +4,4 @@ Aplicação desenvolvida em React com o objetivo de melhorar habilidades como de
 
 ## URL
 
-O projeto pode ser acessado [aqui](https://covid-19-react-app-f81fc.firebaseapp.com/).
+O projeto pode ser acessado [aqui](https://covid-19-react-app-f81fc.web.app/).
