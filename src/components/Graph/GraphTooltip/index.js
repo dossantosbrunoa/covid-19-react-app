@@ -10,8 +10,6 @@ const GraphTooltip = ({ active, payload, label, dataType }) => {
         return "Número de casos";
       case "deaths":
         return "Número de mortes";
-      case "recovered":
-        return "Número de recuperados";
       default:
         return "";
     }

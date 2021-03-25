@@ -44,18 +44,8 @@ const mapObject = {
     minValuePerHabitant: 100000,
     maxValuePerHabitant: 300000,
     backgroundButtonColor: "#ff0000",
-    linePosition: "center",
-    label: "Total de Mortes",
-  },
-  totalRecovered: {
-    lowerLimit: "#e5f2e5",
-    upperLimit: "#008000",
-    defaultPerHabitantValue: 8000,
-    minValuePerHabitant: 4000,
-    maxValuePerHabitant: 12000,
-    backgroundButtonColor: "#008000",
     linePosition: "flex-end",
-    label: "Total de Recuperados",
+    label: "Total de Mortes",
   },
 };
 

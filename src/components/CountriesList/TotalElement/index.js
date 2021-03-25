@@ -4,7 +4,7 @@ import { Container, LabelContainer, FieldsContainer, FieldContainer } from "./st
 
 import PropTypes from "prop-types";
 
-const TotalElement = ({ loading, totalCases, totalDeaths, totalRecovered }) => {
+const TotalElement = ({ loading, totalCases, totalDeaths }) => {
   let totalElement = null;
 
   if (loading) {
@@ -20,9 +20,6 @@ const TotalElement = ({ loading, totalCases, totalDeaths, totalRecovered }) => {
           <FieldContainer width={"20%"}>
             {totalDeaths.toLocaleString("pt-Br")}
           </FieldContainer>
-          <FieldContainer width={"30%"}>
-            {totalRecovered.toLocaleString("pt-Br")}
-          </FieldContainer>
         </FieldsContainer>
       </>
     );
@@ -35,7 +32,6 @@ TotalElement.propTypes = {
   loading: PropTypes.bool.isRequired,
   totalCases: PropTypes.number.isRequired,
   totalDeaths: PropTypes.number.isRequired,
-  totalRecovered: PropTypes.number.isRequired,
 }
 
 export default TotalElement;

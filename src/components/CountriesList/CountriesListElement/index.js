@@ -13,7 +13,6 @@ const CountriesListElement = ({
   name,
   totalCases,
   totalDeaths,
-  totalRecovered,
   flag,
 }) => {
   return (
@@ -29,9 +28,6 @@ const CountriesListElement = ({
         <ValuesElementContainer width="20%">
           {totalDeaths.toLocaleString("pt-Br")}
         </ValuesElementContainer>
-        <ValuesElementContainer width="30%">
-          {totalRecovered.toLocaleString("pt-Br")}
-        </ValuesElementContainer>
       </ValuesContainer>
     </ElementContainer>
   );
@@ -41,7 +37,6 @@ CountriesListElement.propTypes = {
   name: PropTypes.string.isRequired,
   totalCases: PropTypes.number.isRequired,
   totalDeaths: PropTypes.number.isRequired,
-  totalRecovered: PropTypes.number.isRequired,
   flag: PropTypes.string.isRequired,
 }
 

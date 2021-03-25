@@ -26,13 +26,8 @@ const graphObject = {
   },
   deaths: {
     backgroundButtonColor: "#ff0000",
-    linePosition: "center",
-    label: "Mortes",
-  },
-  recovered: {
-    backgroundButtonColor: "#008000",
     linePosition: "flex-end",
-    label: "Recuperados",
+    label: "Mortes",
   },
 };
 

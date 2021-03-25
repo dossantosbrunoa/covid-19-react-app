@@ -20,7 +20,6 @@ export default class CovidService {
                         alpha2Code: cd.countryInfo.iso2,
                         totalDeaths: cd.deaths,
                         totalCases: cd.cases,
-                        totalRecovered: cd.recovered,
                         population: country.population,
                         name: country.translations.br,
                         flag: country.flag
@@ -33,7 +32,6 @@ export default class CovidService {
                 global: {
                     totalDeaths: global.deaths,
                     totalCases: global.cases,
-                    totalRecovered: global.recovered,
                 }
             });
         } catch {
@@ -47,7 +45,6 @@ export default class CovidService {
             return Promise.resolve({
                 cases: data.timeline.cases,
                 deaths: data.timeline.deaths,
-                recovered: data.timeline.recovered,
             });
         } catch {
             return Promise.reject('Erro ao obter dados, tente novamente mais tarde');

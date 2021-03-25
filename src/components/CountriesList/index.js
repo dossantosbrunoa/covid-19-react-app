@@ -25,7 +25,6 @@ const CountriesList = () => {
   const [sortObject, setSortObject] = useState({
     totalCases: "desc",
     totalDeaths: null,
-    totalRecovered: null,
   });
 
   let elements = null;
@@ -39,7 +38,6 @@ const CountriesList = () => {
         name={summary.name}
         totalCases={summary.totalCases}
         totalDeaths={summary.totalDeaths}
-        totalRecovered={summary.totalRecovered}
         flag={summary.flag}
       />
     ));
@@ -52,7 +50,6 @@ const CountriesList = () => {
     const emptySortObject = {
       totalCases: null,
       totalDeaths: null,
-      totalRecovered: null,
     };
     const newSortObject = {
       ...emptySortObject,
@@ -84,15 +81,6 @@ const CountriesList = () => {
             <OrderListIcon order={sortObject.totalDeaths} />
             <HeaderLabel selected={isActive("totalDeaths")}>Mortes</HeaderLabel>
           </ValuesHeaderContainer>
-          <ValuesHeaderContainer
-            width="30%"
-            onClick={() => onSortHandler("totalRecovered")}
-          >
-            <OrderListIcon order={sortObject.totalRecovered} />
-            <HeaderLabel selected={isActive("totalRecovered")}>
-              Recuperados
-            </HeaderLabel>
-          </ValuesHeaderContainer>
         </ValuesContainer>
       </HeaderContainer>
       <ElementsContainer>{elements}</ElementsContainer>
@@ -100,7 +88,6 @@ const CountriesList = () => {
         loading={loading}
         totalCases={global ? global.totalCases : 0}
         totalDeaths={global ? global.totalDeaths : 0}
-        totalRecovered={global ? global.totalRecovered : 0}
       />
     </Container>
   );
